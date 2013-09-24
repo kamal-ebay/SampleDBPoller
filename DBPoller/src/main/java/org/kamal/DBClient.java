@@ -18,7 +18,7 @@ public class DBClient {
 
         try {
             connection = DriverManager
-                    .getConnection("jdbc:mysql://localhost:3306/test","root", "root");
+                    .getConnection(connectionString,"root", "root");
 
         } catch (SQLException e) {
             e.printStackTrace();;
@@ -26,6 +26,20 @@ public class DBClient {
         }
 
        return connection;
+    }
+
+    public boolean closeDBConnection(Connection connection) {
+        if(connection != null) {
+            try {
+                if(!connection.isClosed()) {
+                    connection.close();
+                    return true;
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return false;
     }
 
 }
