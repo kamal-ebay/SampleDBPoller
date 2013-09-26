@@ -28,6 +28,10 @@ public class StartJobWeb extends javax.servlet.http.HttpServlet {
             // Grab the Scheduler instance from the Factory
             Scheduler scheduler = StdSchedulerFactory.getDefaultScheduler();
 
+            Scheduler scheduler1 = StdSchedulerFactory.getDefaultScheduler();
+            System.out.println(scheduler);
+            System.out.println(scheduler1);
+
             // and start it off
             scheduler.start();
 
@@ -47,7 +51,6 @@ public class StartJobWeb extends javax.servlet.http.HttpServlet {
 
             // Tell quartz to schedule the job using our trigger
             scheduler.scheduleJob(job, trigger);
-
 
         } catch (SchedulerException se) {
             se.printStackTrace();

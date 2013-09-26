@@ -8,9 +8,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Properties;
+import java.util.*;
 
 /**
  * Created by kmuralidharan on 9/21/13.
@@ -38,7 +36,7 @@ public class DBPoller {
             Connection connection = null;
             try {
                 connection = client.getDBConnection(entry.getValue());
-                executeQuery(connection);
+                executeQuery(connection, entry.getKey());
             } catch (Exception e) {
                 e.printStackTrace();
             } finally {
@@ -47,13 +45,18 @@ public class DBPoller {
         }
     }
 
-    public void executeQuery(Connection con){
+    public void executeQuery(Connection con, String key){
         try {
             PreparedStatement ps = con.prepareStatement("select status from jobs");
+            List<JobResult> lst = new ArrayList<JobResult>();
             ResultSet resultSet = ps.executeQuery();
             while(resultSet.next()) {
-                System.out.println("Status is " + resultSet.getString(1));
+                JobResult j = new JobResult();
+                j.setStatus(resultSet.getString(1));
+                lst.add(j);
             }
+
+            DataStore.getMapInstance().put(key, lst);
         } catch (SQLException e) {
             e.printStackTrace();
         }
