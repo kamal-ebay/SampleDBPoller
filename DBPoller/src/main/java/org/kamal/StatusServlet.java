@@ -23,7 +23,7 @@ public class StatusServlet extends HttpServlet {
         out.println("<html><body><table border='1'>");
 
         for(Map.Entry<String, List<JobResult>> entry : DataStore.getMapInstance().entrySet()) {
-            out.println("<tr><td>" + entry.getKey() + "</td><td>" +entry.getValue().toString() + "</td></tr>");
+            out.println("<tr><td>" + entry.getKey().toString() + "</td><td>" +entry.getValue().get(0).getStatus() + "</td></tr>");
         }
 
         out.println("</table></body></html>");
