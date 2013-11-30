@@ -72,11 +72,14 @@
 						//for (Map.Entry<String, List<JobResult>> entry : DataStore
 						//		.getMapInstance().entrySet()) {
 						for (Map.Entry<String, List<JobResult>> entry : sampledata.entrySet()) {
-						cnt++;
+						
 					%>
-			
+						  <script type="text/javascript">
+			        		myCars[<%= cnt %>] = "<%= entry.getKey() %>"; 
+			        	</script>
 	                      <a href="#" class="list-group-item" id="<%= entry.getKey()%>" onclick="toggle(this);"> <%= entry.getKey() %> </a>
 	                <% 
+	                		cnt++;
 	                	}
 
 	        		%>
@@ -93,9 +96,7 @@
 			        for (Map.Entry<String, List<JobResult>> entry : sampledata.entrySet()) {
 					cnt++;
 				%>
-				<script type="text/javascript">
-	        		myCars[<%= cnt %>] = "<%= entry.getKey() %>"; 
-	        	</script>
+				
 	            <div id="<%= entry.getKey() %>-status" style="display:none">
 	                <table>
 	                    <tr><th>Status</th></tr>
